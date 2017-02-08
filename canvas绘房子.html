@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>canvas绘图</title>
+<title>canvas绘房子</title>
 <style type="text/css">
 body{
 	background-color:#666;}
@@ -14,6 +14,18 @@ body{
 	
 </style>
 <script>
+//定义一个数组
+var house=[
+   {p:[{x:250,y:100},{x:80,y:250},{x:420,y:250},{x:250,y:100}],color:"#cc0000"},
+   {p:[{x:100,y:250},{x:400,y:250},{x:400,y:450},{x:100,y:450},{x:100,y:250}],color:"#fce5cd"},
+   {p:[{x:140,y:290},{x:180,y:290},{x:180,y:330},{x:140,y:330},{x:140,y:290}],color:"#3c78d8"},//左边窗户
+   {p:[{x:320,y:290},{x:360,y:290},{x:360,y:330},{x:320,y:330},{x:320,y:290}],color:"#3c78d8"},//右边窗户
+   {p:[{x:210,y:350},{x:290,y:350},{x:290,y:450},{x:210,y:450},{x:210,y:350}],color:"#aaaeb8"},//门
+   {p:[{x:600,y:200},{x:560,y:240},{x:640,y:240},{x:600,y:200}],color:"#1d850b"},//树   
+   {p:[{x:600,y:240},{x:540,y:300},{x:660,y:300},{x:600,y:240}],color:"#1d850b"},
+   {p:[{x:600,y:300},{x:520,y:380},{x:680,y:380},{x:600,y:300}],color:"#1d850b"},
+   {p:[{x:580,y:380},{x:580,y:450},{x:620,y:450},{x:620,y:380},{x:580,y:380}],color:"#370e06"}//树干
+]
 window.onload=function(){
 	var canvas=document.getElementById("canvas");
 	canvas.height=500;
@@ -25,29 +37,24 @@ window.onload=function(){
 	}else{
 		alert("天啦噜，您竟然看不到本宝宝");
 	}
-	context.beginPath();
-	context.moveTo(100,100);//绘制状态
-	context.lineTo(100,400);
-	context.lineTo(400,400);
-	context.lineTo(100,100);
-	context.fillStyle="rgba(2,50,90,0.4)";
-	context.fill();
-	context.lineWidth=5;
-	context.strokeStyle="#000090";
-	context.stroke();
-	context.closePath();
+	for(var i=0;i<house.length;i++){
+		draw(house[i],context);
+	}
+	function draw(piece,cxt){
+		cxt.beginPath();
+		cxt.moveTo(piece.p[0].x,piece.p[0].y);
+		for(var i=1;i<piece.p.length;i++){
+		  cxt.lineTo(piece.p[i].x,piece.p[i].y);
+		}
+		cxt.lineWidth=4;
+		cxt.strokeStyle="#333";
+	    cxt.stroke();
+		cxt.closePath();
+		cxt.fillStyle=piece.color;
+		cxt.fill();
+	}
 	
-	context.beginPath();
-	context.moveTo(100,100);//绘制状态
-	context.lineTo(400,100);
-	context.lineTo(400,400);
-	context.lineTo(100,100);
-	context.fillStyle="rgba(90,50,2,0.4)";
-	context.fill();
-	context.lineWidth=5;
-	context.strokeStyle="#900000";
-	context.stroke();
-    context.closePath();
+	
 }
 </script>
 </head>
