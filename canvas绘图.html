@@ -48,6 +48,20 @@ window.onload=function(){
 	context.strokeStyle="#900000";
 	context.stroke();
     context.closePath();
+	//画圆
+	
+	for(var i=0;i<6;i++){
+		context.beginPath();
+	    context.arc(500,250,20*i+20,0,2*Math.PI);
+		var a=255-40*i;
+		var b=40*i;
+		alert(rgba(a,0,b,1));
+		context.strokeStyle="rgba(a,0,b,1)";
+	    context.stroke();
+ 	    context.fillStyle="rgba(0,a,b,0.4)";
+	    context.fill();
+	    context.closePath();
+	}
 }
 </script>
 </head>
