@@ -11,62 +11,67 @@ window.onload=function(){
 	context.fillStyle="#000";
 	context.fillRect=(0,0,canvas.width,canvas.height);
     //画星星
-	for(var i=0;i<150;i++){
+	for(var i=0;i<180;i++){
 		var R=Math.floor(Math.random()*255);
 		var G=Math.floor(Math.random()*255);
 		var B=Math.floor(Math.random()*255);
 		var star={
-            r:Math.random()*20+5,
+            r:Math.random()*30+20,
             x:Math.random()*canvas.width,
 		    y:Math.random()*canvas.height,
 			color:"rgb("+R+","+G+","+B+")",
-			vx:Math.random()*4-2,
-			vy:Math.random()*4-2,
-			ax:Math.random()*2-1,
-			ay:Math.random()*2-1
+			vx:Math.random()*1-0.5,
+			vy:Math.random()*1-0.5,
+			ax:Math.random()*1-0.5,
+			ay:Math.random()*1-0.5
 		};
 		stars.push(star);
-	    drawball(context, stars[i].x,stars[i].y,stars[i].r,stars[i].color);
 	}
 	//更新
 	var timer=setInterval(function(){
-		context.clearRect(0,0,canvas.width,canvas.height);
-		update(context);
+		update();
+		drawball(context);
 	},50);
-}
-function update(context){
-  for(var i=0;i<stars.length;i++){
-    stars[i].x+=stars[i].vx;
-    stars[i].y+=stars[i].vy;
-	stars[i].vy+=stars[i].ay;
-	stars[i].vx+=stars[i].ax;
-	//去掉的画星星就飞光啦
-	if(stars[i].x>=canvas.width){
-		stars[i].x=canvas.width;
-		stars[i].vx=-stars[i].vx;
+	
+	function update(){
+	  for(var i=0;i<stars.length;i++){
+		stars[i].x+=stars[i].vx;
+		stars[i].y+=stars[i].vy;
+		stars[i].vy+=stars[i].ay;
+		stars[i].vx+=stars[i].ax;
+		//去掉的画星星就飞光啦
+		if(stars[i].x>=canvas.width){
+			stars[i].x=canvas.width;
+			stars[i].vx=-stars[i].vx;
+		}
+		if(stars[i].x<=0){
+			stars[i].x=0;
+			stars[i].vx=-stars[i].vx;
+		}
+		if(stars[i].y>=canvas.height){
+			stars[i].y=canvas.height;
+			stars[i].vy=-stars[i].vy;
+		}
+		if(stars[i].y<=0){
+			stars[i].y=0;
+			stars[i].vy=-stars[i].vy;
+		}
+	  }
 	}
-	if(stars[i].x<=0){
-		stars[i].x=0;
-		stars[i].vx=-stars[i].vx;
+	function drawball(cxt){
+	  var canvas=cxt.canvas;
+	  context.clearRect(0,0,canvas.width,canvas.height);
+	  cxt.save();
+	  cxt.beginPath();
+	  cxt.globalCompositeOperation="lighter";
+	  for(var i=0;i<stars.length;i++){
+			  cxt.fillStyle=stars[i].color;
+			  cxt.beginPath();
+			  cxt.arc(stars[i].x,stars[i].y,stars[i].r,0,2*Math.PI);
+			  cxt.closePath();
+			  cxt.fill();
+	  }
+	  cxt.closePath();
+	  cxt.restore();
 	}
-	if(stars[i].y>=canvas.height){
-		stars[i].y=canvas.height;
-		stars[i].vy=-stars[i].vy;
-	}
-	if(stars[i].y<=0){
-		stars[i].y=0;
-		stars[i].vy=-stars[i].vy;
-	}
-	 drawball(context, stars[i].x,stars[i].y,stars[i].r,stars[i].color);
-  }
-}
-function drawball(cxt, x,y,r,color){
-  cxt.globalCompositeOperation="xor";
-  for(var i=0;i<stars.length;i++){
-		  cxt.fillStyle=color;
-		  cxt.beginPath();
-		  cxt.arc(x,y,r,0,2*Math.PI);
-		  cxt.closePath();
-		  cxt.fill();
-  }
 }
