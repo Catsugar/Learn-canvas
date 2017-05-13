@@ -1,10 +1,24 @@
-var WINDOW_WIDTH= document.body.clientWidth;
-var WINDOW_HEIGHT= document.body.clientHeight;
+// 获取窗口宽度
+if (window.innerWidth)
+winWidth = window.innerWidth;
+else if ((document.body) && (document.body.clientWidth))
+winWidth = document.body.clientWidth;
+// 获取窗口高度
+if (window.innerHeight)
+winHeight = window.innerHeight;
+else if ((document.body) && (document.body.clientHeight))
+winHeight = document.body.clientHeight;
+// 通过深入 Document 内部对 body 进行检测，获取窗口大小
+if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+{
+winHeight = document.documentElement.clientHeight;
+winWidth = document.documentElement.clientWidth;
+}
 
 window.onload=function(){
 	var canvas=document.getElementById("canvas");
-	canvas.width=WINDOW_WIDTH;
-	canvas.height=WINDOW_HEIGHT;
+	canvas.width=winWidth;
+	canvas.height=winHeight;
 	var searchlight={
             r:Math.random()*50+50,
             x:Math.random()*canvas.width,
