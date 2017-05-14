@@ -1,7 +1,8 @@
 var WINDOW_WIDTH= document.body.clientWidth;
 var WINDOW_HEIGHT= document.body.clientHeight;
 var stars=[];
-
+var score=0;
+var num=100;
 window.onload=function(){
 	var canvas=document.getElementById("canvas");
 	canvas.width=WINDOW_WIDTH;
@@ -11,23 +12,8 @@ window.onload=function(){
 	//背景
 	context.fillStyle="#000";
 	context.fillRect=(0,0,canvas.width,canvas.height);
-    //画星星
-	for(var i=0;i<100;i++){
-		var R=Math.floor(Math.random()*255);
-		var G=Math.floor(Math.random()*255);
-		var B=Math.floor(Math.random()*255);
-		var star={
-            r:Math.random()*30+20,
-            x:Math.random()*canvas.width,
-		    y:Math.random()*canvas.height,
-			color:"rgb("+R+","+G+","+B+")",
-			vx:Math.random()*0.5-0.25,
-			vy:Math.random()*0.5-0.25,
-			ax:Math.random()*0.5-0.25,
-			ay:Math.random()*0.5-0.25
-		};
-		stars.push(star);
-	}
+	//加小球
+	addballs(num);
 	canvas.addEventListener("mousedown", detect);
 	//canvas.addEventListener("mouseup", recovery);
 	//更新
@@ -35,6 +21,35 @@ window.onload=function(){
 		update();
 		drawball(context);
 	},50);
+	
+	//点击重新开始
+	document.getElementById("restart").onclick=function(){
+	   score=0;
+	   document.getElementById("score").innerHTML=score;
+	   num= (document.getElementById("ballnum").value!=0)? document.getElementById("ballnum").value : 100;
+	   stars=[];
+	   addballs(num);
+	   
+	}
+	//加小球
+	function addballs(n){
+		for(var i=0;i<n;i++){
+			var R=Math.floor(Math.random()*255);
+			var G=Math.floor(Math.random()*255);
+			var B=Math.floor(Math.random()*255);
+			var star={
+				r:Math.random()*30+20,
+				x:Math.random()*canvas.width,
+				y:Math.random()*canvas.height,
+				color:"rgb("+R+","+G+","+B+")",
+				vx:Math.random()*0.5-0.25,
+				vy:Math.random()*0.5-0.25,
+				ax:Math.random()*0.5-0.25,
+				ay:Math.random()*0.5-0.25
+			};
+			stars.push(star);
+		}
+	}
 	//监听事件
 	function detect(event){
 	   var x=event.clientX-canvas.getBoundingClientRect().left;
@@ -46,6 +61,8 @@ window.onload=function(){
 			 context.fillStyle="red" ;
 		     context.fill(); 
 			 stars.splice(i,1);
+			 score++;
+			 document.getElementById("score").innerHTML=score;//小球计分数
 		   }
 	   }
 	  /* if(a!==-1){
@@ -109,4 +126,5 @@ window.onload=function(){
 	  cxt.closePath();
 	  cxt.restore();
 	}
+	
 }
