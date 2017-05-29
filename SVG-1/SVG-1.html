@@ -5,25 +5,79 @@
 <title>svg-1</title>
 </head>
 <style type="text/css">
-html,body{
-	padding:0;
-	margin:0;
-	height:100%;
-	width:100%;
-	background:#35318A;
-	line-height:0;
-	font-size:0;	
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #1C2D51;
+	line-height: 0;
+	font-size: 0;
 }
 </style>
 
 <body>
 <svg width="100%" height="100%" viewBox="-400 -300 800 600" preserveAspectRatio="xMidYMid slice">
-   <defs>
-   <polygon id="star" points="0 -10 2 -2 10 0 2 2 0 10 -2 2 -10 0 -2 -2" fill="#fff"></polygon>
-   </defs>
-   <polygon points="0 -10 2 -2 10 0 2 2 0 10 -2 2 -10 0 -2 -2" fill="white"></polygon>
-   <g id="star-group"></q>
-</svg>
+<defs>
+  <polygon id="star" points="0 -10 2 -2 10 0 2 2 0 10 -2 2 -10 0 -2 -2" fill="#fff"></polygon>
+</defs>
+<g id="real"> 
+  <!---星星和月亮--->
+  <g id="star-group"></g>
+  <g id="moon-group">
+    <mask id="moon-mask">
+      <circle cx="-250" cy="-120" r="60" fill="white"></circle>
+      <circle cx="-220" cy="-150" r="60" fill="black"></circle>
+    </mask>
+    <circle cx="-250" cy="-120" r="60" fill="yellow" mask="url(#moon-mask)"></circle>
+  </g>
+  <!---灯塔--->
+  <g id="light-tower" transform="translate(250,0)">
+  <defs> 
+    <!---灯塔的渐变--->
+    <linearGradient id="tower" x1="0" y1="0" x2="1" y2="0">
+      <stop offset='0' stop-color="#999"></stop>
+      <stop offset='1' stop-color="#333"></stop>
+    </linearGradient>
+    <!---灯g光的渐变--->
+    <radialGradient id="light" cx="0.5" cy="0.5" r="0.5">
+      <stop offset='0' stop-color="rgba(255,255,255,0.8)"></stop>
+      <stop offset='1' stop-color="rgba(255,255,255,0)"></stop>
+    </radialGradient>
+    <!---剪切的路径--->
+    <clipPath id="light-clip">
+      <polygon points="0 0 -400 -15 -400 15" fill="rgba(255,0,0,0.4)">
+        <animateTransform> attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from="0"
+          to="360"
+          dur="10s"
+          repratCount="indefinite" </animateTransform>
+      </polygon>
+      <circle cx="0" cy="0" r="2"></circle>
+    </clipPath>
+  </defs>
+  <polygon points="0 0 5 50 -5 50" fill="url(#tower)"></polygon>
+  <ellipse cx="0" cy="0" rx="300" ry="100" fill="url(#light)" clip-path="url(#light-clip)">></ellipse>
+ </g>
+</g>
+<!--倒影-->
+<g id="reflact" transform="translate(0,50)" mask="url(#fading)">
+ <defs>
+   <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset='0' stop-color="rgba(255,255,255,0.3)"></stop>
+      <stop offset='0.5' stop-color="rgba(255,255,255,0)"></stop>
+   </linearGradient>
+   <mask  id="fading">
+      <rect x="-400" y="0" width="800" height="300" fill="url(#fade)">
+	  </rect>
+   </mask>
+ </defs>
+ <use xlink:href="#real" transform="scale(1,-1) translate(0,-50)" ></use>
+ 
+</g>
+</svg> 
 <script>
 var paper=document.querySelector('svg');
 var SVG_NS="http://www.w3.org/2000/svg";
@@ -38,7 +92,7 @@ function renderStar(){//绘制星星的函数
 	  star=use(starRaf);
 	  star.setAttribute('opacity', random(0.2,0.8));
       star.setAttribute('transform', 
-	    'translate('+random(-400,400)+','+random(-300,300) +')'+
+	    'translate('+random(-400,400)+','+random(-300,50) +')'+
 		'scale('+random(0.1,0.6) +')'
 	  );
 	  starGroup.appendChild(star);
