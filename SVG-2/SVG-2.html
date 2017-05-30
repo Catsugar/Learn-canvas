@@ -17,11 +17,34 @@ html, body,svg{
 </style>
 
 <body>
-<svg>
-   <rect x="100" y="100" width="100" height="100" fill="orange">
-     <animate attributeType="XML" attributeName="x" from="100" to="500" dur="3s" fill="freeze" repeatCount="100"></animate>
-     <animate attributeType="XML" attributeName="fill" from="orange" to="green" dur="3s" fill="freeze" repeatCount="100">
+<svg viewBox="-400 -400 800 800">
+   <rect x="100" y="100" width="100" height="100" >
+     <animate id="goright" attributeType="XML" attributeName="x" begin="0; goleft.end+2s" from="100" to="500" dur="3s" fill="freeze" repeatCount="100">
 	 </animate>
+     <animate id="goleft" attributeType="XML" attributeName="x" begin="goright.end+2s" from="500" to="100" dur="3s" fill="freeze" repeatCount="100">
+	 </animate>
+     <animate id="turng" attributeType="XML" attributeName="fill" begin="0; turnr.end+2s" from="red" to="green" dur="3s" fill="freeze" repeatCount="100">
+	 </animate>
+	 <animate id="turnr" attributeType="XML" attributeName="fill" begin="turng.end+2s" from="green" to="red" dur="3s" fill="freeze" repeatCount="100">
+	 </animate>
+     <animateTransform attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          from="0"
+          to="360"
+          dur="3s"
+		  fill="freeze"
+          repeatCount="100"> 
+	  </animateTransform>
+	  <animate attributeName="transform"
+          attributeType="XML"
+          type="scale"
+          from="1"
+          to="1.5"
+          dur="3s"
+		  fill="freeze"
+          repeatCount="100"> 
+	  </animate>
    </rect>
 </svg> 
 <script>

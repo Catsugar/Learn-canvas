@@ -14,4 +14,7 @@
 <hr>
 
 
-* [星空](https://catsugar.github.io/Learn-canvas/SVG-1/SVG-1.html)
+* [svg样例：星空](https://catsugar.github.io/Learn-canvas/SVG-1/SVG-1.html)
+* [svg样例：动画1](https://catsugar.github.io/Learn-canvas/SVG-2/SVG-2.html)
+* [svg样例：动画2](https://catsugar.github.io/Learn-canvas/SVG-2/SVG-3.html)
+* [svg样例：力导图](https://catsugar.github.io/Learn-canvas/SVG-2/SVG-4.html)

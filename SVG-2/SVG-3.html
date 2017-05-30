@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>svg-3</title>
+</head>
+<style type="text/css">
+html, body,svg{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	line-height: 0;
+	font-size: 0;
+	background-color:#333;
+}
+</style>
+
+<body>
+<svg viewBox="-400 -400 800 800">
+   <rect x="-25" y="-25" width="50" height="50" fill="rgba(240,133,98,0.5)" >
+     <animateMotion path="M 0 0L 100 100A 200 200 0 1 0 0 -100" dur="3s" rotate="auto" repeatCount="100">
+	    <mpath xlink:href="#motion-path"></mpath>
+	 </animateMotion>
+   </rect>
+   <path id="motion-path" d="M 0 0L 100 100A 200 200 0 1 0 0 -100"
+   stroke="gray" fill="none"></path>
+</svg> 
+<script>
+
+</script>
+</body>
+</html>
